@@ -1,4 +1,5 @@
-export interface kata {
+export type Kata = {
+    _id: string
     creator: string
     description: string
     intents: number

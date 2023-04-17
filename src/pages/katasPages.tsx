@@ -11,12 +11,7 @@ export const KatasPages = () => {
     let navigate = useNavigate()
     const [katasArray, setKatasArray] = useState([])
 
-    useEffect(() => {
-        if (!loggedIn) {
-            return navigate('/login')
-        }
 
-    }, [loggedIn])
 
     const getKatas = () => {
         GetAllKatas(loggedIn).then((response: AxiosResponse) => {
@@ -30,11 +25,16 @@ export const KatasPages = () => {
 
         });
     }
+
     useEffect(() => {
-        getKatas()
-    }, [])
+        if (!loggedIn) {
+            return navigate('/login')
+        }
+        else {
+            getKatas()
+        }
 
-
+    }, [loggedIn])
 
     const navigateToKataDetail = (id: Number) => {
         navigate(`/katas/${id}`)
@@ -43,14 +43,20 @@ export const KatasPages = () => {
     return (
         <div>
             <h1> Katas Pages</h1>
-            {katasArray.map((kata: any, index) =>
-            (
-                <div key={index}>
-                    <li onClick={() => navigateToKataDetail(kata._id)}>name:{kata.name}</li>
-                    {/* <h4></h4> */}
+
+            {katasArray.length > 0 ?
+
+                katasArray.map((kata: any, index) =>
+                (
+                    <div key={index}>
+                        <li style={{ 'cursor': "pointer" }} onClick={() => navigateToKataDetail(kata._id)}>name:{kata.name}</li>
+                    </div>
+                )
+                )
+                :
+                <div>
+                    No katas found
                 </div>
-            )
-            )
             }
 
 

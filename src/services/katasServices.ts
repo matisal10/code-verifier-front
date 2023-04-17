@@ -12,10 +12,13 @@ export const GetAllKatas = (token: string) => {
 }
 
 export const getDetails = (token: string, id: string) => {
-    return axiosConfig.get(`/kata?id=${id}`, {
+    return axiosConfig.get(`/kata`, {
         headers: {
             'x-access-token': token,
             'Content-Type': 'application/json'
+        },
+        params:{
+            'id':id
         }
     })
 }
