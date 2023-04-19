@@ -14,6 +14,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import NoticationsIcon from '@mui/icons-material/Notifications'
 
 import { menuItems } from "./menuItems";
+import { NewEditor } from "../editor/newEditor";
+import { TiptapEditor } from "../editor/TipTapEditor";
 
 const drawerWith: number = 240
 
@@ -158,9 +160,10 @@ export const Dashboard = () => {
                                 p: 2,
                                 display: 'flex',
                                 flexDirection: 'column',
-                                height: 240
+                                height: 400
                             }}>
-
+                                <NewEditor/>
+                                {/* <TiptapEditor/> */}
                             </Paper>
                         </Grid>
 
