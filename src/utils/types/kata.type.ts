@@ -1,5 +1,5 @@
 export type Kata = {
-    _id: string
+    _id?: string
     creator: string
     description: string
     intents: number
@@ -7,5 +7,7 @@ export type Kata = {
     name: string
     participants: []
     solution: string
-    valoration: number
+    valoration: number,
+    date: Date,
+    num_valorations: number
 }

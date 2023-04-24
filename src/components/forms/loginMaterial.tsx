@@ -12,17 +12,44 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from 'yup'
+
+import { login } from "../../services/authService";
+import { AxiosResponse } from "axios";
+
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 
 export const LoginMaterial = () => {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    let navigate = useNavigate()
+
+    const  handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        const email = data.get('email')?.toString()
+        const password = data.get('password')?.toString()
+        if (email && password) {
+            login(email, password).then((response: AxiosResponse) => {
+                if (response.status === 200) {
+                    if (response.data.token) {
+                        sessionStorage.setItem("sessionJWTToken", response.data.token)
+                        sessionStorage.setItem("idUser", response.data.id)
+                        navigate('/')
+                    }
+                    else {
+                        throw new Error('Error generating login token')
+                    }
+                }
+                else {
+                    throw new Error('Invalid credentials')
+                }
+
+            })
+                .catch((error) => console.error(`[LOGIN ERROR]: Something went wrong: ${error}`))
+        }
+
     };
 
     return (
