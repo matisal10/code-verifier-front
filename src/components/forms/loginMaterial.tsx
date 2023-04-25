@@ -12,8 +12,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from 'yup'
 
 import { login } from "../../services/authService";
 import { AxiosResponse } from "axios";

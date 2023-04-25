@@ -13,9 +13,8 @@ import CrevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import LogoutIcon from '@mui/icons-material/Logout';
 import NoticationsIcon from '@mui/icons-material/Notifications'
 
-import { menuItems } from "./menuItems";
+import { MenuItems } from "./menuItems";
 import { NewEditor } from "../editor/newEditor";
-import { TiptapEditor } from "../editor/TipTapEditor";
 
 const drawerWith: number = 240
 
@@ -141,7 +140,7 @@ export const Dashboard = () => {
                     </Toolbar>
                     <Divider />
                     <List component='nav' >
-                        {menuItems}
+                        {MenuItems}
                     </List>
                 </Drawer>
                 <Box

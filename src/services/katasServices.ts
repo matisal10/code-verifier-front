@@ -1,13 +1,16 @@
 import axiosConfig from "../utils/config/axios.config";
 import { Kata } from "../utils/types/kata.type";
 
-export const GetAllKatas = (token: string) => {
+export const GetAllKatas = (token: string,page:number) => {
 
     //send get request to login endpoint
     return axiosConfig.get("/kata", {
         headers: {
             'x-access-token': token,
             'Content-Type': 'application/json'
+        },
+        params:{
+            "page":page,
         }
     })
 }
@@ -58,6 +61,18 @@ export const updateKataById = (token: string, id: string,  kata: Kata, creatorId
         params: {
             'id': id,
             'creatorId': creatorId
+        }
+    })
+}
+
+export const getMykatasById = (token: string, id: string, ) => {
+    return axiosConfig.get(`/users/katas`, {
+        headers: {
+            'x-access-token': token,
+            'Content-Type': 'application/json'
+        },
+        params: {
+            'id': id,
         }
     })
 }

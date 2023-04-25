@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useSessionStorage } from "../../hooks/useSessionStorage";
-import { createKata, getDetails, updateKataById } from '../../services/katasServices';
+import {  getDetails, updateKataById } from '../../services/katasServices';
 import { AxiosResponse } from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 

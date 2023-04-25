@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSessionStorage } from '../hooks/useSessionStorage';
 
-import { GetAllKatas, createKata, deleteKataByid } from '../services/katasServices';
+import { GetAllKatas, deleteKataByid } from '../services/katasServices';
 import { AxiosResponse } from 'axios';
 
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import { Kata } from '../utils/types/kata.type';
+import { Pagination } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+
 
 export interface State extends SnackbarOrigin {
     open: boolean;
@@ -26,8 +28,8 @@ export const KatasPages = () => {
 
 
 
-    const getKatas = () => {
-        GetAllKatas(loggedIn).then((response: AxiosResponse) => {
+    const getKatas = (page: number) => {
+        GetAllKatas(loggedIn,page).then((response: AxiosResponse) => {
             if (response.status === 200) {
                 setKatasArray(response.data.katas);
                 // console.log(katasArray);
@@ -44,7 +46,7 @@ export const KatasPages = () => {
             return navigate('/login')
         }
         else {
-            getKatas()
+            getKatas(page)
         }
 
     }, [loggedIn])
@@ -56,7 +58,7 @@ export const KatasPages = () => {
         navigate(`/katas/create`)
     }
 
-    const editKata = (id: Number) => {
+    const editKata = (id: string) => {
         navigate(`/katas/edit/${id}`)
     }
 
@@ -91,6 +93,17 @@ export const KatasPages = () => {
 
     }
 
+    const myKatas = () => {
+        navigate(`/katas/myKatas`)
+    }
+
+    const [page, setPage] = React.useState(1);
+    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+        getKatas(value)
+        // console.log(value)
+    };
+
     return (
         <div>
             <h1> Katas Pages</h1>
@@ -102,7 +115,7 @@ export const KatasPages = () => {
                     <div key={index}>
                         <div>
                             <a style={{ 'cursor': "pointer" }} onClick={() => navigateToKataDetail(kata._id)}>name: {kata.name}</a>
-                            <Button onClick={()=>editKata(kata._id)}><EditIcon/></Button>
+                            {/* <Button onClick={()=>editKata(kata._id)}><EditIcon/></Button>
                             <Button style={{ background: "none", cursor: "pointer" }} onClick={() => deleteKata(kata, {
                                 vertical: 'top',
                                 horizontal: 'center',
@@ -115,7 +128,7 @@ export const KatasPages = () => {
                                     message="kata Eliminada correctamente"
                                     key={vertical + horizontal}
                                 />
-                            </Button>
+                            </Button> */}
                         </div>
                     </div>
                 )
@@ -127,6 +140,12 @@ export const KatasPages = () => {
             }
             <div>
                 <Button onClick={() => createKata()}>Create Kata</Button>
+                <Button onClick={() => myKatas()}><EditIcon /></Button>
+            </div>
+            <div className='pagination'>
+                <Stack spacing={2}>
+                    <Pagination count={10} page={page} onChange={handleChange} />
+                </Stack>
             </div>
 
         </div>

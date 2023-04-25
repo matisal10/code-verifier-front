@@ -7,6 +7,7 @@ import { KatasPages } from '../pages/katasPages';
 import { KataDetailsPage } from '../pages/kataDetailsPage';
 import { CreateKataPage } from '../pages/createKataPage';
 import { EditPage } from '../pages/editKataPage';
+import { MyKatasPages } from '../pages/myKatasPages';
 export const AppRoute = () => {
     return (
         <div>
@@ -16,6 +17,7 @@ export const AppRoute = () => {
                 <Route path='/register' element={<RegisterPage />}></Route>
                 <Route path='/katas' element={<KatasPages />}></Route>
                 <Route path='/katas/create' element={<CreateKataPage />}></Route>
+                <Route path='/katas/myKatas' element={<MyKatasPages />}></Route>
                 <Route path='/katas/edit/:id' element={<EditPage />}></Route>
                 <Route path='/katas/:id' element={<KataDetailsPage />}></Route>
                 <Route path='*' element={<Navigate to={'/'} replace />}></Route>
