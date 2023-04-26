@@ -4,10 +4,13 @@ import { useSessionStorage } from "../../hooks/useSessionStorage";
 import { createKata } from '../../services/katasServices';
 import { AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
+import { NewEditor } from "../editor/newEditor";
+import './styles/createForm.scss'
+import { Button, MenuItem, Select, TextField } from "@mui/material";
 
 
 export default function CreateForm() {
-    
+
     let loggedIn = useSessionStorage('sessionJWTToken')
     let creatorId = useSessionStorage("idUser")
     let navigate = useNavigate()
@@ -26,70 +29,82 @@ export default function CreateForm() {
 
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
-        setForm((prevForm:any) => ({
+        setForm((prevForm: any) => ({
             ...prevForm,
             [name]: value,
+        }));
+    };
+    const solution = (solution: string) => {
+        setForm((prevForm: any) => ({
+            ...prevForm,
+            ['solution']: solution,
         }));
     };
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        await createKata(loggedIn,creatorId,form).then((response : AxiosResponse)=>{
-            if(response.data.status === 200){
+        await createKata(loggedIn, creatorId, form).then((response: AxiosResponse) => {
+            if (response.data.status === 200) {
                 navigate("/katas")
             }
-            else{
+            else {
                 throw new Error('Invalid credentials')
             }
         })
-        .catch((error) => console.error(`[CREATE ERROR]: Something went wrong: ${error}`))
+            .catch((error) => console.error(`[CREATE ERROR]: Something went wrong: ${error}`))
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="container">
             <label>
-                Nombre:
-                <input
+                
+                <TextField
                     type="text"
                     name="name"
                     value={form.name}
                     onChange={handleInputChange}
+                    label="Name"
                 />
             </label>
             <br />
             <label>
-                Descripción:
-                <textarea
+                
+                <TextField
                     name="description"
                     value={form.description}
                     onChange={handleInputChange}
-                ></textarea>
+                    label="Description"
+                ></TextField>
             </label>
             <br />
             <label>
-                Nivel:
-                <select
+                <Select
                     name="level"
                     value={form.level}
                     onChange={handleInputChange}
+                    displayEmpty
+                    label="Level"
                 >
-                    <option value="">Selecciona un nivel</option>
-                    <option value="Basic">Basic</option>
-                    <option value="Midle">Midle </option>
-                    <option value="High">High </option>
-                </select>
+                    <MenuItem value="">Selecciona un nivel</MenuItem>
+                    <MenuItem value="Basic">Basic</MenuItem>
+                    <MenuItem value="Midle">Midle </MenuItem>
+                    <MenuItem value="High">High </MenuItem>
+                </Select>
             </label>
             <br />
-            <label>
-                Solución:
-                <textarea
+            <label className="solution">
+                Solution:
+                {/* <textarea
                     name="solution"
                     value={form.solution}
                     onChange={handleInputChange}
-                ></textarea>
+                ></textarea> */}
+                <div style={{ width: "300px", display: "flex", alignItems: 'center', }}>
+                    <NewEditor onData={solution} />
+                </div>
             </label>
             <br />
-            <button type="submit">Create</button>
+            <Button type="submit">Create</Button>
         </form>
     );
 }

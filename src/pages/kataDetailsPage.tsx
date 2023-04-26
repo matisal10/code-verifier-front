@@ -114,6 +114,7 @@ export const KataDetailsPage = () => {
                                 key={vertical + horizontal}
                             />
                         </Button>
+                        <Button onClick={()=>navigate(`/katas/${id}/resolve`)}>Send Solution</Button>
                     </div>
 
                     :

@@ -76,3 +76,16 @@ export const getMykatasById = (token: string, id: string, ) => {
         }
     })
 }
+
+export const sendSolution = (token: string, id: string,solution:string ) => {
+    return axiosConfig.get(`/users/katas/solution`, {
+        headers: {
+            'x-access-token': token,
+            'Content-Type': 'application/json'
+        },
+        params: {
+            'id': id,
+            'solution': solution
+        }
+    })
+}
