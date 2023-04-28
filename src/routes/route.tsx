@@ -9,6 +9,7 @@ import { CreateKataPage } from '../pages/createKataPage';
 import { EditPage } from '../pages/editKataPage';
 import { MyKatasPages } from '../pages/myKatasPages';
 import { ResolveKata } from '../pages/resolveKata';
+import { FilePondUploader } from '../components/uploader/FilePondUploader';
 export const AppRoute = () => {
     return (
         <div>
@@ -22,6 +23,7 @@ export const AppRoute = () => {
                 <Route path='/katas/edit/:id' element={<EditPage />}></Route>
                 <Route path='/katas/:id' element={<KataDetailsPage />}></Route>
                 <Route path='/katas/:id/Resolve' element={<ResolveKata />}></Route>
+                <Route path='/katas/Upload/:id' element={<FilePondUploader />}></Route>
                 <Route path='*' element={<Navigate to={'/'} replace />}></Route>
                 <Route
                     path='*'

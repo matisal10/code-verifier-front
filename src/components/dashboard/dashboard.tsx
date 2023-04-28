@@ -15,6 +15,8 @@ import NoticationsIcon from '@mui/icons-material/Notifications'
 
 import { MenuItems } from "./menuItems";
 import { NewEditor } from "../editor/newEditor";
+import { FilePondUploader } from '../uploader/FilePondUploader';
+import { KatasPages } from "../../pages/katasPages";
 
 const drawerWith: number = 240
 
@@ -161,8 +163,10 @@ export const Dashboard = () => {
                                 flexDirection: 'column',
                                 height: 400
                             }}>
-                                <NewEditor/>
+                                {/* <NewEditor/> */}
                                 {/* <TiptapEditor/> */}
+                                {/* <FilePondUploader/> */}
+                                <KatasPages/>
                             </Paper>
                         </Grid>
 

@@ -9,5 +9,11 @@ export type Kata = {
     solution: string
     valoration: number,
     date: Date,
-    num_valorations: number
+    num_valorations: number,
+    files: []
+}
+
+export type Dato = {
+    img:object
+    pdf:object
 }

@@ -1,7 +1,7 @@
 import axiosConfig from "../utils/config/axios.config";
 import { Kata } from "../utils/types/kata.type";
 
-export const GetAllKatas = (token: string,page:number) => {
+export const GetAllKatas = (token: string, page: number) => {
 
     //send get request to login endpoint
     return axiosConfig.get("/kata", {
@@ -9,8 +9,8 @@ export const GetAllKatas = (token: string,page:number) => {
             'x-access-token': token,
             'Content-Type': 'application/json'
         },
-        params:{
-            "page":page,
+        params: {
+            "page": page,
         }
     })
 }
@@ -52,8 +52,8 @@ export const deleteKataByid = (token: string, id: string, creatorId: string) => 
     })
 }
 
-export const updateKataById = (token: string, id: string,  kata: Kata, creatorId: string) => {
-    return axiosConfig.put(`/kata`,kata, {
+export const updateKataById = (token: string, id: string, kata: Kata, creatorId: string) => {
+    return axiosConfig.put(`/kata`, kata, {
         headers: {
             'x-access-token': token,
             'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ export const updateKataById = (token: string, id: string,  kata: Kata, creatorId
     })
 }
 
-export const getMykatasById = (token: string, id: string, ) => {
+export const getMykatasById = (token: string, id: string,) => {
     return axiosConfig.get(`/users/katas`, {
         headers: {
             'x-access-token': token,
@@ -77,7 +77,7 @@ export const getMykatasById = (token: string, id: string, ) => {
     })
 }
 
-export const sendSolution = (token: string, id: string,solution:string ) => {
+export const sendSolution = (token: string, id: string, solution: string) => {
     return axiosConfig.get(`/users/katas/solution`, {
         headers: {
             'x-access-token': token,
@@ -86,6 +86,18 @@ export const sendSolution = (token: string, id: string,solution:string ) => {
         params: {
             'id': id,
             'solution': solution
+        }
+    })
+}
+
+export const updateFiles = (token: string,files: any) => {
+    return axiosConfig.post(`/kata/UploadFile`, {
+        headers: {
+            'x-access-token': token,
+            'Content-Type': 'application/json'
+        },
+        params: {
+            
         }
     })
 }

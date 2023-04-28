@@ -20,7 +20,7 @@ export const KataDetailsPage = () => {
     let creatorId = useSessionStorage("idUser")
     let loggedIn = useSessionStorage('sessionJWTToken')
     let navigate = useNavigate()
-    const [details, setDetails] = useState<Kata>()
+    const [details, setDetails] = useState<any>()
     const [showSolution, setShowSolution] = useState(true)
 
     const obtainDetails = () => {
@@ -28,7 +28,7 @@ export const KataDetailsPage = () => {
             getDetails(loggedIn, id).then((response: AxiosResponse) => {
                 if (response.status === 200) {
                     setDetails(response.data);
-                    // console.log(response.data);
+                    console.log(response.data);
                 }
                 else {
                     throw new Error('get error');
@@ -94,6 +94,14 @@ export const KataDetailsPage = () => {
                         <h1> Name: {details.name}</h1>
                         <h2>Description: {details.description}</h2>
                         <h3>Level: {details.level}</h3>
+                        {
+                            details.files.img 
+                            ? 
+                            <img src={`data:image/png;base64,${details.files.img.data}`} alt="" /> 
+                            : 
+                            <div></div>
+                        }
+                        
                         <button onClick={() => setShowSolution(!showSolution)}>
                             {showSolution ? "Show solution" : 'Hide solution'}
                         </button>

@@ -45,7 +45,8 @@ export default function CreateForm() {
         event.preventDefault();
         await createKata(loggedIn, creatorId, form).then((response: AxiosResponse) => {
             if (response.data.status === 200) {
-                navigate("/katas")
+                // console.log(response.data.id)
+                navigate(`/katas/Upload/${response.data.id}`)
             }
             else {
                 throw new Error('Invalid credentials')
